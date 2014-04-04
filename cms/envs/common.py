@@ -102,6 +102,12 @@ FEATURES = {
 
     # Switch acceptance tests to use the container page instead of the unit page
     'USE_CONTAINER_PAGE_FOR_TESTING': False,
+
+    # Temporary feature flag for duplicating xblock leaves
+    'ENABLE_DUPLICATE_XBLOCK_LEAF_COMPONENT': True,
+
+    # Temporary feature flag for deleting xblock leaves
+    'ENABLE_DELETE_XBLOCK_LEAF_COMPONENT': True,
 }
 ENABLE_JASMINE = False
 
