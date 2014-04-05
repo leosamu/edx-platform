@@ -21,15 +21,12 @@ xblock_info = {
 };
 %>
 <script type='text/javascript'>
-    require(["domReady!", "jquery", "js/models/xblock_info", "js/views/xblock",
-            "js/models/module_info", "coffee/src/views/unit",
+    require(["domReady!", "jquery", "underscore", "js/models/xblock_info", "js/views/container",
             "xmodule", "coffee/src/main", "xblock/cms.runtime.v1",
             "js/views/metadata", "js/collections/metadata"],
-            function(doc, $, XBlockInfo, XBlockView) {
-                var model,
-                    view;
-                model = new XBlockInfo(${json.dumps(xblock_info) | n});
-                view = new XBlockView({
+            function(doc, $, _, XBlockInfo, ContainerView) {
+                var model = new XBlockInfo(${json.dumps(xblock_info) | n});
+                var view = new ContainerView({
                     el: $('.wrapper-xblock.level-page').first(),
                     model: model,
                     view: 'container_preview'
