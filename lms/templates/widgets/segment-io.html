@@ -9,13 +9,17 @@
   window.analytics||(window.analytics=[]),window.analytics.methods=["identify","track","trackLink","trackForm","trackClick","trackSubmit","page","pageview","ab","alias","ready","group","on","once","off"],window.analytics.factory=function(t){return function(){var a=Array.prototype.slice.call(arguments);return a.unshift(t),window.analytics.push(a),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var method=window.analytics.methods[i];window.analytics[method]=window.analytics.factory(method)}window.analytics.load=function(t){var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https://":"http://")+"d2dq2ahtl5zl1z.cloudfront.net/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(a,n)},window.analytics.SNIPPET_VERSION="2.0.8",
   window.analytics.load("${ settings.SEGMENT_IO_LMS_KEY }");
 
-  currentPage = window.location.href.split("/").slice(-1)[0]
-  if (currentPage == "") {
+  path = window.location.href.split("/").slice(3)[0]
+  if (path == "") {
     window.analytics.page("Home");
-  } else if (currentPage == "register") {
+  } else if (path == "register") {
     window.analytics.page("Registration");
-  } else if (currentPage == "login") {
+  } else if (path == "login") {
     window.analytics.page("Login");
+  } else if (path == "course-list") {
+    window.analytics.page("Course Listing");
+  } else if (path == "course") {
+    window.analytics.page("Course About");
   } else {
     window.analytics.page("Other");
   }
@@ -23,9 +27,10 @@
   % if user.is_authenticated():
 
     analytics.identify("${ user.id }", {
-      email          : "${ user.email }",
-      username       : "${ user.username }",
-      "Active Flags" : "${ active_flags }",
+      email             : "${ user.email }",
+      username          : "${ user.username }",
+      "Enrollment Count": +"${ user.courseenrollment_set.count() }",
+      "Active Flags"    : "${ active_flags }",
     });
 
   % endif
