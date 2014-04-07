@@ -16,6 +16,8 @@
     window.analytics.page("Registration");
   } else if (path == "login") {
     window.analytics.page("Login");
+  } else if (path == "dashboard") {
+    window.analytics.page("Dashboard");
   } else if (path == "course-list") {
     window.analytics.page("Course Listing");
   } else if (path == "course") {
@@ -27,9 +29,10 @@
   % if user.is_authenticated():
 
     analytics.identify("${ user.id }", {
+      "Registered"      : true,
       email             : "${ user.email }",
       username          : "${ user.username }",
-      "Enrollment Count": +"${ user.courseenrollment_set.count() }",
+      "Enrollment Count": ${ user.courseenrollment_set.count() },
       "Active Flags"    : "${ active_flags }",
     });
 
