@@ -48,10 +48,30 @@ The following documentation is available:
 edX Studio
 *************
 
-* 
+* **HTML Editor Upgrade**
+
+  The HTML editor you use for HTML components, as well as Pages, was upgraded to improve usability.
+
+  .. image:: images/HTMLEditor.png
+   :alt: Image of the new HTML Editor
+
+  For instructions on using the new editor to add text, images, and links, see `Working with HTML Components <http://edx.readthedocs.org/projects/ca/en/latest/creating_content/create_html_component.html>`_.
 
 ***************************************
 edX Learning Management System
 ***************************************
 
-* 
+* A problem that prevented course staff from deleting the student's state for an XBlock in the Beta Instructor Dashboard is now resolved. (LMS-2491)
+
+* (LMS-2474)
+
+* Video transcripts are now displayed in their source language. (BLD-935)
+
+* (BLD-958)
+
+
+***************************************
+edX Discussions
+***************************************
+
+* (FOR-542)
