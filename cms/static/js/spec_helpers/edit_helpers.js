@@ -10,8 +10,32 @@ define(["jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/modal_helpers
             stringEntryTemplate = readFixtures('metadata-string-entry.underscore'),
             editXBlockModalTemplate = readFixtures('edit-xblock-modal.underscore'),
             editorModeButtonTemplate = readFixtures('editor-mode-button.underscore'),
+            saved,
+            installMockXBlock,
+            uninstallMockXBlock,
+            hasSavedMockXBlock,
             installEditTemplates,
             showEditModal;
+
+        installMockXBlock = function(mockResult) {
+            saved = false;
+            window.MockXBlock = function(runtime, element) {
+                return {
+                    save: function() {
+                        saved = true;
+                        return mockResult;
+                    }
+                };
+            };
+        };
+
+        uninstallMockXBlock = function() {
+            window.MockXBlock = null;
+        };
+
+        hasSavedMockXBlock = function() {
+            return saved;
+        };
 
         installEditTemplates = function(append) {
             modal_helpers.installModalTemplates(append);
@@ -37,6 +61,9 @@ define(["jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/modal_helpers
         };
 
         return $.extend(modal_helpers, {
+            'installMockXBlock': installMockXBlock,
+            'hasSavedMockXBlock': hasSavedMockXBlock,
+            'uninstallMockXBlock': uninstallMockXBlock,
             'installEditTemplates': installEditTemplates,
             'showEditModal': showEditModal
         });

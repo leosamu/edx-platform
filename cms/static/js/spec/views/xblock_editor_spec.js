@@ -18,19 +18,25 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
             });
 
             describe("Editing an xblock", function() {
-                var mockXBlockEditorHtml;
+                var mockXBlockEditorHtml, mockXBlockEditorWithCustomMetadataHtml, displayName;
+
+                displayName = 'Test Display Name';
 
                 beforeEach(function () {
-                    window.MockXBlock = function(runtime, element) {
-                        return { };
-                    };
+                    edit_helpers.installMockXBlock({
+                        data: "<p>Some HTML</p>",
+                        metadata: {
+                            display_name: displayName
+                        }
+                    });
                 });
 
                 afterEach(function() {
-                    window.MockXBlock = null;
+                    edit_helpers.uninstallMockXBlock();
                 });
 
                 mockXBlockEditorHtml = readFixtures('mock/mock-xblock-editor.underscore');
+                mockXBlockEditorWithCustomMetadataHtml = readFixtures('mock/mock-xblock-editor-with-custom-metadata.underscore');
 
                 it('can render itself', function() {
                     var requests = create_sinon.requests(this);
@@ -42,6 +48,20 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
 
                     expect(editor.$el.select('.xblock-header')).toBeTruthy();
                     expect(editor.getMode()).toEqual('editor');
+                });
+
+                it('saves any custom metadata', function() {
+                    var requests = create_sinon.requests(this), request, response;
+                    editor.render();
+                    create_sinon.respondWithJson(requests, {
+                        html: mockXBlockEditorWithCustomMetadataHtml,
+                        "resources": []
+                    });
+                    editor.save();
+                    request = requests[requests.length - 1];
+                    response = JSON.parse(request.requestBody);
+                    expect(response.metadata.display_name).toBe(displayName);
+                    expect(response.metadata.custom_field).toBe('Custom Value');
                 });
             });
 
