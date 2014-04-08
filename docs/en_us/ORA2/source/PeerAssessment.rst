@@ -406,11 +406,11 @@ To test your assignment, set up the assignment in a test course, and ask a group
 
 .. _PA Access Status:
 
-*********************
-Access Step Status
-*********************
+******************************
+Access Status of Problem Steps
+******************************
 
-After your problem has opened, you can check the current number of students who have submitted responses, have completed peer and self assessments, are waiting to receive grades, or have finished the problem entirely. 
+After your problem has opened, you can check the current number of students who are in each step--that is, how many students have submitted responses, have completed peer and self assessments, are waiting to assess responses or receive grades, or have finished the problem entirely. 
 
 To find this information, open the problem in the LMS, scroll to the bottom of the problem, and then click the black **Course Staff Information** banner.
 
@@ -425,7 +425,7 @@ To find this information, open the problem in the LMS, scroll to the bottom of t
 Access Student Responses
 ************************
 
-Student responses, along with other data for peer assessment assignments, are available from your course's `data czar <http://edx.readthedocs.org/projects/devdata/en/latest/internal_data_formats/data_czar.html>`_.
+Student responses, along with other data for peer assessment assignments, are available from your institution's `data czar <http://edx.readthedocs.org/projects/devdata/en/latest/internal_data_formats/data_czar.html>`_.
 
 
 
