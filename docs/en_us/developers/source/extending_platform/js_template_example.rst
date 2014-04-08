@@ -1,13 +1,10 @@
-.. _The Custom JavaScript Display and Grading Example Template
+.. _The Custom JavaScript Display and Grading Example Template:
 
-####################################################################################
+###########################################################
 The Custom JavaScript Display and Grading Example Template
-####################################################################################
+###########################################################
 
-As referred to in `course staff documentation <http://edx.readthedocs.org/projec
-ts/ca/en/latest/problems_tools/advanced_problems.html#custom-javascript-display-
-and-grading>`_, there is a built-in template in edX Studio that uses a sample
-JavaScript application.
+As referred to in `course staff documentation <http://edx.readthedocs.org/projects/ca/en/latest/problems_tools/advanced_problems.html#custom-javascript-display-and-grading>`_, there is a built-in template in edX Studio that uses a sample JavaScript application.
 
 This sample application has students select two different shapes, a cone
 and a cube. The correct state is when the cone is selected and the cube is not selected:
@@ -95,7 +92,7 @@ In the example, when a student clicks **Check**, the ``getGrade()`` function in 
 The returned JSON string is then used by the Python code defined in the problem to determine if correct objects were selected or not, and to return a result.
 
 *******************************
-Grading the Student Response
+Grade the Student Response
 *******************************
 
 
@@ -137,44 +134,45 @@ XML Problem Structure
 The XML problem for the sample template is:
 
 .. code-block:: xml
+
     <problem display_name="webGLDemo">
-    <script type="loncapa/python">
-        import json
-        def vglcfn(e, ans):
-            '''
-            par is a dictionary containing two keys, "answer" and "state"
-            The value of answer is the JSON string returned by getGrade
-            The value of state is the JSON string returned by getState
-            '''
-            par = json.loads(ans)
-            # We can use either the value of the answer key to grade
-            answer = json.loads(par["answer"])
-            return answer["cylinder"] and not answer["cube"]
-            '''
-            # Or we could use the value of the state key
-            state = json.loads(par["state"])
-            selectedObjects = state["selectedObjects"]
-            return selectedObjects["cylinder"] and not selectedObjects["cube"]
-            '''
-    </script>
-    <p>
-        The shapes below can be selected (yellow) or unselected (cyan).
-        Clicking on them repeatedly will cycle through these two states.
-    </p>
-    <p>
-        If the cone is selected (and not the cube), a correct answer will be
-        generated after pressing "Check". Clicking on either "Check" or "Save"
-        will register the current state.
-    </p>
-    <customresponse cfn="vglcfn">
-        <jsinput gradefn="WebGLDemo.getGrade"
-            get_statefn="WebGLDemo.getState"
-        set_statefn="WebGLDemo.setState"
-        width="400"
-        height="400"
-        html_file="https://studio.edx.org/c4x/edX/DemoX/asset/webGLDemo.html"
-        sop="false"/>
-    </customresponse>
+        <script type="loncapa/python">
+            import json
+            def vglcfn(e, ans):
+                '''
+                par is a dictionary containing two keys, "answer" and "state"
+                The value of answer is the JSON string returned by getGrade
+                The value of state is the JSON string returned by getState
+                '''
+                par = json.loads(ans)
+                # We can use either the value of the answer key to grade
+                answer = json.loads(par["answer"])
+                return answer["cylinder"] and not answer["cube"]
+                '''
+                # Or we could use the value of the state key
+                state = json.loads(par["state"])
+                selectedObjects = state["selectedObjects"]
+                return selectedObjects["cylinder"] and not selectedObjects["cube"]
+                '''
+        </script>
+        <p>
+            The shapes below can be selected (yellow) or unselected (cyan).
+            Clicking on them repeatedly will cycle through these two states.
+        </p>
+        <p>
+            If the cone is selected (and not the cube), a correct answer will be
+            generated after pressing "Check". Clicking on either "Check" or "Save"
+            will register the current state.
+        </p>
+        <customresponse cfn="vglcfn">
+            <jsinput gradefn="WebGLDemo.getGrade"
+                get_statefn="WebGLDemo.getState"
+            set_statefn="WebGLDemo.setState"
+            width="400"
+            height="400"
+            html_file="https://studio.edx.org/c4x/edX/DemoX/asset/webGLDemo.html"
+            sop="false"/>
+        </customresponse>
     </problem>
 
 
