@@ -13,6 +13,7 @@ from django.conf import settings
 from cache_toolbox.core import del_cached_content
 from xmodule.contentstore.content import StaticContent
 from xmodule.contentstore.django import contentstore
+from xmodule.fields import RelativeTime
 
 TEST_ROOT = settings.COMMON_TEST_DATA_ROOT
 LANGUAGES = settings.ALL_LANGUAGES
@@ -144,6 +145,7 @@ def get_metadata(parent_location, player_mode, data, display_name='Video'):
             'transcripts': json.loads,
             'download_track': json.loads,
             'download_video': json.loads,
+            'start_time': RelativeTime.isotime_to_timedelta,
         }
 
         for key in data:
