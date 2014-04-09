@@ -48,15 +48,6 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
 
                 displayName = 'Test Display Name';
 
-                beforeEach(function () {
-                    edit_helpers.installMockXBlock({
-                        data: "<p>Some HTML</p>",
-                        metadata: {
-                            display_name: displayName
-                        }
-                    });
-                });
-
                 afterEach(function() {
                     edit_helpers.uninstallMockXBlock();
                 });
@@ -65,6 +56,12 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
 
                 it('saves any custom metadata', function() {
                     var requests = create_sinon.requests(this), request, response;
+                    edit_helpers.installMockXBlock({
+                        data: "<p>Some HTML</p>",
+                        metadata: {
+                            display_name: displayName
+                        }
+                    });
                     editor.render();
                     create_sinon.respondWithJson(requests, {
                         html: mockXBlockEditorHtml,

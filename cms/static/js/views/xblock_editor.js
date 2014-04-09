@@ -85,8 +85,7 @@ define(["jquery", "underscore", "gettext", "js/views/feedback_notification", "js
             },
 
             save: function(options) {
-                var xblock = this.xblock,
-                    xblockInfo = this.model,
+                var xblockInfo = this.model,
                     data,
                     saving;
                 data = this.getXBlockData();
