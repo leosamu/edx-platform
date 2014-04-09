@@ -18,7 +18,33 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
             });
 
             describe("Editing an xblock", function() {
-                var mockXBlockEditorHtml, mockXBlockEditorWithCustomMetadataHtml, displayName;
+                var mockXBlockEditorHtml, displayName;
+
+                beforeEach(function () {
+                    edit_helpers.installMockXBlock();
+                });
+
+                afterEach(function() {
+                    edit_helpers.uninstallMockXBlock();
+                });
+
+                mockXBlockEditorHtml = readFixtures('mock/mock-xblock-editor.underscore');
+
+                it('can render itself', function() {
+                    var requests = create_sinon.requests(this);
+                    editor.render();
+                    create_sinon.respondWithJson(requests, {
+                        html: mockXBlockEditorHtml,
+                        "resources": []
+                    });
+
+                    expect(editor.$el.select('.xblock-header')).toBeTruthy();
+                    expect(editor.getMode()).toEqual('editor');
+                });
+            });
+
+            describe("Editing an xblock with custom metadata", function() {
+                var mockXBlockEditorHtml, displayName;
 
                 displayName = 'Test Display Name';
 
@@ -35,26 +61,13 @@ define([ "jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/edit_helpers
                     edit_helpers.uninstallMockXBlock();
                 });
 
-                mockXBlockEditorHtml = readFixtures('mock/mock-xblock-editor.underscore');
-                mockXBlockEditorWithCustomMetadataHtml = readFixtures('mock/mock-xblock-editor-with-custom-metadata.underscore');
-
-                it('can render itself', function() {
-                    var requests = create_sinon.requests(this);
-                    editor.render();
-                    create_sinon.respondWithJson(requests, {
-                        html: mockXBlockEditorHtml,
-                        "resources": []
-                    });
-
-                    expect(editor.$el.select('.xblock-header')).toBeTruthy();
-                    expect(editor.getMode()).toEqual('editor');
-                });
+                mockXBlockEditorHtml = readFixtures('mock/mock-xblock-editor-with-custom-metadata.underscore');
 
                 it('saves any custom metadata', function() {
                     var requests = create_sinon.requests(this), request, response;
                     editor.render();
                     create_sinon.respondWithJson(requests, {
-                        html: mockXBlockEditorWithCustomMetadataHtml,
+                        html: mockXBlockEditorHtml,
                         "resources": []
                     });
                     editor.save();
