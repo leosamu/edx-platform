@@ -285,14 +285,12 @@ Feature: LMS Video component
 
   # 26
   Scenario: Download button works correctly w/o english transcript in Youtube mode of Video component
-    Given I enable capturing of screenshots before and after each step
     Given I am registered for the course "test_course"
     And I have a "chinese_transcripts.srt" transcript file in assets
     And it has a video in "Youtube" mode:
       | transcripts                       | download_track |
       | {"zh": "chinese_transcripts.srt"} | true           |
     And I see "好 各位同学" text in the captions
-    Given I disable capturing of screenshots before and after each step
     Then I can download transcript in "srt" format that has text "好 各位同学"
 
   # 27
