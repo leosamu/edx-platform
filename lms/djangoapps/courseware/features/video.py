@@ -145,7 +145,6 @@ def get_metadata(parent_location, player_mode, data, display_name='Video'):
             'transcripts': json.loads,
             'download_track': json.loads,
             'download_video': json.loads,
-            'start_time': RelativeTime.isotime_to_timedelta,
         }
 
         for key in data:

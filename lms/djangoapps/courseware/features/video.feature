@@ -278,7 +278,7 @@ Feature: LMS Video component
     Given I am registered for the course "test_course"
     And it has a video in "Youtube" mode:
       | start_time |
-      | "00:00:10"  |
+      | 00:00:10   |
     And I open the section with videos
     And I click video button "play"
     Then I see video slider at "10" seconds
